@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Tienda de Ropa</title>
+</head>
+<body>
+    <h2>Demo Tienda de Ropa con POO y Patrones</h2>
+    <!-- Boton que ejecuta la demo -->
+    <button onclick="demoTienda()">Ejecutar Demo</button>
+
+    <script>
+        // Aqui debes pegar todo el codigo JS anterior que contiene:
+        // - Clases Prenda, RopaHombre, RopaMujer
+        // - PrendaFactory
+        // - Cliente, TiendaRopa
+        // - DescuentoNormal, DescuentoVIP
+        // - Carrito
+
+        // Funcion que ejecuta toda la demostracion
+        function demoTienda() {
+            console.log("=== DEMO TIENDA DE ROPA ===");
+
+            // FACTORY: Crear prendas con el factory method
+            const camisaHombre = PrendaFactory.crearPrenda('hombre', 'Camisa Formal', 40, 'L');
+            const vestidoMujer = PrendaFactory.crearPrenda('mujer', 'Vestido de Noche', 80, 'Rojo');
+
+            // Mostrar descripcion de cada prenda
+            camisaHombre.descripcion();
+            vestidoMujer.descripcion();
+
+            // OBSERVER: Notificar a clientes sobre la nueva coleccion
+            const tienda = new TiendaRopa();
+            const cliente1 = new Cliente('Laura');
+            const cliente2 = new Cliente('Carlos');
+
+            // Suscribir clientes
+            tienda.suscribir(cliente1);
+            tienda.suscribir(cliente2);
+
+            // Anunciar nueva coleccion a todos los suscriptores
+            tienda.anunciarNuevaColeccion("¡Nueva coleccion Primavera-Verano disponible!");
+
+            // STRATEGY: Aplicar descuentos usando estrategias diferentes
+            const carrito1 = new Carrito(camisaHombre, new DescuentoNormal());
+            console.log(`Precio final con descuento normal: $${carrito1.precioFinal()}`);
+
+            const carrito2 = new Carrito(vestidoMujer, new DescuentoVIP());
+            console.log(`Precio final con descuento VIP: $${carrito2.precioFinal()}`);
+        }
+    </script>
+</body>
+</html>
